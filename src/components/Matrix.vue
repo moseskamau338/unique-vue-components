@@ -2,6 +2,7 @@
 import {NButton, NButtonGroup, NColorPicker, NDivider, NInput, NIcon} from 'naive-ui'
   import { TextItalic24Regular, TextBold24Regular, TextUnderline24Regular, TextStrikethrough24Regular } from '@vicons/fluent'
 import {computed, type CSSProperties, ref} from "vue";
+import ResizableColumn from "@/components/MatrixComponents/ResizableColumn.vue";
 
 let cols = ref(2)
 let rows = ref(2)
@@ -45,11 +46,18 @@ const currentStyles = (value): string[] =>{
   return Object.keys(style.value?.[current_cell.value] || {})
       .filter(key => style.value?.[current_cell.value][key] === value)
 }
+
+const colWidths = ref(Array(cols.value).fill(100)) // Initial column widths
+
+// Handle resizing by updating all cells in a given column
+function resizeColumn(newWidth, colIndex) {
+  colWidths.value[colIndex] = newWidth
+}
 </script>
 
 <template>
   <pre>
-    {{JSON.stringify(input_values, null,2)}}
+    {{JSON.stringify(colWidths, null,2)}}
   </pre>
   <div class="bg-white border border-slate-200 rounded p-2 w-1/2 flex flex-row justify-between">
     <n-button-group class="flex flex-row">
@@ -97,6 +105,16 @@ const currentStyles = (value): string[] =>{
       </div>
 
       <table class="border-collapse h-fit">
+        <thead>
+        <tr>
+          <td v-for="(i, index) in cols" :style="{width:colWidths[index]+'px'}">
+            <ResizableColumn :colIndex="index" :initialWidth="colWidths[index]" @resize="resizeColumn">
+              {{i}}
+            </ResizableColumn>
+
+          </td>
+        </tr>
+        </thead>
         <tbody>
               <tr v-for="r in rows">
                 <td v-for="c in cols" style="padding: 0">
@@ -112,7 +130,7 @@ const currentStyles = (value): string[] =>{
                           r !== rows ? 'border-[0.5px]' : 'border-b-none',
                           c !== cols ? 'border-r-[0.5px]' : 'border-r-none',
                       ]"
-                      size="tiny" class="!border-slate-300 !text-xs outline-0 !p-1 ring-0 !w-[90px] !rounded-none"
+                      size="tiny" class="!border-slate-300 !text-xs outline-0 !p-1 ring-0 !rounded-none w-full"
                       placeholder=""
                       @focus="() => current_cell = `${r}-${c}`" />
                 </td>

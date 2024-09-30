@@ -1,7 +1,7 @@
 <template>
   <div class="resizable-column" :style="columnStyle">
     <slot></slot>
-    <div class="resize-handle" @mousedown="startResizing"></div>
+    <div class="resize-handle hover:bg-red-800" @mousedown="startResizing"></div>
   </div>
 </template>
 
@@ -40,6 +40,7 @@ function startResizing(event) {
 function resizeColumn(event) {
   if (!isResizing.value) return
   const newWidth = event.clientX - event.target.getBoundingClientRect().left
+  console.log(newWidth)
   if (newWidth > 50) { // Prevent the column from becoming too small
     columnWidth.value = newWidth
     emit('resize', newWidth, props.colIndex) // Emit with column index
@@ -61,7 +62,6 @@ function stopResizing() {
 .resize-handle {
   width: 5px;
   height: 100%;
-  background-color: transparent;
   cursor: col-resize;
   position: absolute;
   top: 0;
