@@ -21,21 +21,6 @@ const {dragged, resized, handles, elementPositions, getCoords, status} = useLayo
     <vue-draggable-resizable
       :parent="true"
       :handles="handles"
-      :resizable="status"
-      :draggable="status"
-      :x="elementPositions[0].x"
-      :y="elementPositions[0].y"
-      :w="elementPositions[0].width"
-      :h="elementPositions[0].height"
-      @-drag="(x,y) => dragged(x,y,0)"
-      @-resize="(x,y,width,height) => resized(x,y,width,height,0)"
-    >
-      <AreaChart />
-    </vue-draggable-resizable>
-
-    <vue-draggable-resizable
-      :parent="true"
-      :handles="handles"
       :x="elementPositions[1].x"
       :y="elementPositions[1].y"
       :w="elementPositions[1].width"
@@ -43,7 +28,7 @@ const {dragged, resized, handles, elementPositions, getCoords, status} = useLayo
       @-drag="(x,y) => dragged(x,y,1)"
       @-resize="(x,y,width,height) => resized(x,y,width,height,1)"
     >
-      <MultiAxisChart />
+      <slot />
     </vue-draggable-resizable>
   </div>
 </template>
