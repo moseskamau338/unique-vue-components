@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import Matrix from "@/components/Matrix.vue";
+import QueryBuilder from "@/components/QueryBuilder.vue";
 </script>
 
 <template>
   <div class="h-[100vh] w-[100vw] p-44">
-    <Matrix />
+    <QueryBuilder />
   </div>
 </template>
 
