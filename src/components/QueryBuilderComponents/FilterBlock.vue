@@ -15,11 +15,18 @@
     />
 
     <!-- Value Input -->
-    <component
-        v-if="selectedOperator !== '_nnull' && selectedOperator !== '_null'"
-        :disabled="!selectedOperator || !selectedOperator.length"
-      :is="valueInputComponent"
-    />
+      <template v-if="selectedOperator !== '_between' && selectedOperator !== '_nbetween'">
+        <component
+            v-if="selectedOperator !== '_nnull' && selectedOperator !== '_null'"
+            :disabled="!selectedOperator || !selectedOperator.length"
+          :is="valueInputComponent"
+        />
+      </template>
+      <NumberRange
+          v-else-if="selectedOperator !== '_nnull' && selectedOperator !== '_null'" :range="inputValue || {min:0, max:10}"
+          @update:range="(val) => {
+            inputValue = val
+          }" />
     </div>
 
     <!-- Remove Filter Button (Optional) -->
@@ -37,6 +44,7 @@ import { NButton, NInput as TextInput, NCheckbox as BooleanInput, NSelect as Sel
 import KeySelector from './KeySelector.vue';
 import OperatorSelector from './OperationSelector.vue';
 import type {FieldFilter} from "@/types/query_types";
+import NumberRange from "@/components/QueryBuilderComponents/NumberRange.vue";
 
 interface Props {
   availableKeys: Array<{ label: string; value: string; type: 'string' | 'number' | 'boolean' | 'selection';

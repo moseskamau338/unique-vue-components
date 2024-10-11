@@ -22,13 +22,10 @@ function addFilter(){
   groupConditions.value.push({})
 }
 function addGroup(){
-  console.log('---adding group---')
-  console.log('---groupConditions - BEFORE---',groupConditions.value)
   groupConditions.value.push({
     [groupOperator.value]: [],
     is_group: true
   })
-  console.log('---groupConditions - AFTER---',groupConditions.value)
 }
 
 watch(() => groupOperator.value, () => {
@@ -39,8 +36,6 @@ watch(() => groupOperator.value, () => {
 })
 
 watch(() => groupConditions.value, async () => {
-  console.log('-----groupConditions, changed-----')
-  console.log(groupConditions.value)
   await nextTick(() => {
     group.value[groupOperator.value] = groupConditions.value
   })
