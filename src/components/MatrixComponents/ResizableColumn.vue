@@ -8,7 +8,7 @@ interface Props {
   enableResize?: boolean
 }
 
-const { width, height, enableResize} = withDefaults(defineProps<Props>(), {enableResize: true})
+const { width, height, enableResize = true} = defineProps<Props>()
 const emit = defineEmits(['updateWidth'])
 
 const el=ref<HTMLDivElement | null>(null)
