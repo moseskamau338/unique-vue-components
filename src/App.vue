@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// import QueryBuilder from "@/components/QueryBuilder.vue";
+import QueryBuilder from "@/components/QueryBuilder.vue";
 import Matrix from "@/components/MatrixComponents/Matrix.vue";
 
 const matrix_data = {
@@ -64,8 +64,8 @@ const matrix_data = {
 
 <template>
   <div class="h-[100vh] w-[100vw] p-44">
-    <!--<QueryBuilder />-->
-    <Matrix view-only :data="matrix_data" />
+    <QueryBuilder />
+    <!--<Matrix view-only :data="matrix_data" />-->
   </div>
 </template>
 
