@@ -28,6 +28,12 @@ function addGroup(){
   })
 }
 
+function deleteCondition(index){
+  console.log('removing condition', index)
+  console.log(groupConditions.value[index])
+  // groupConditions.value()
+}
+
 watch(() => groupOperator.value, () => {
   group.value = {
     [groupOperator.value]: groupConditions.value,

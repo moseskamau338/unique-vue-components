@@ -3,8 +3,10 @@ import type {FieldFilter} from '@/types/query_types'
 import {NButton} from "naive-ui";
 import {ref} from "vue";
 import QueryGroup from "@/components/QueryBuilderComponents/QueryGroup.vue";
+import {useQueryBuilder} from "@/components/QueryBuilderComponents/queryBuilder";
 
 const filterValue = ref<Record, FieldFilter[]>({});
+const {summarizeFilter} = useQueryBuilder()
 const availableKeys = [
   { label: 'Name', value: 'name', type: 'string' },
   { label: 'Age', value: 'age', type: 'number' },
@@ -31,13 +33,14 @@ const availableKeys = [
   </div>
   <div class="px-4">
     Results
-<pre class="bg-slate-100 p-2">
-{{JSON.stringify(filterValue, null, 2)}}
-</pre>
+<!--<p v-html="summarizeFilter(filterValue)"></p>-->
+  <pre class="bg-slate-100 p-2">
+  {{JSON.stringify(filterValue, null, 2)}}
+  </pre>
   </div>
 </div>
 </template>
 
-<style scoped>
+<style>
 
 </style>
